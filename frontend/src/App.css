@@ -90,6 +90,36 @@ PARTIE HEADER
   width: 25px;
 }
 
+@media screen and (max-width: 950px) {
+  .liensNav:nth-child(4) {
+    width: 550px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .listeMenu {
+    flex-direction: column;
+    height: 250px;
+    padding-top: 50px;
+  }
+  .liensNav {
+    height: 100px;
+    background: #6441a4;
+    width: 100%;
+  }
+  .liensNav:nth-child(4) {
+    width: 100%!important;
+    padding: 10px 0 20px 0;
+  }
+  .formSubmit {
+    justify-content: center;
+  }
+  .menuResBtn {
+    display: block!important;
+    z-index: 1000;
+  }
+}
+
 /* 
 //////////////
 PARTIE SIDEBAR
@@ -117,7 +147,7 @@ PARTIE SIDEBAR
   padding: 10px 15px 8px 5px;
   display: flex;
   justify-content: space-between;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   text-decoration: none;
   list-style: none;
   cursor: pointer;
@@ -168,11 +198,17 @@ PARTIE CONNEXION
 .connexion {
   position: relative;
   top: 50px;
-  left: 239px;
-  width: 10vw;
+  margin-left: 239px;
+  width: 100%;
 }
 .button-connexion {
+  color: #fff;
+  font-size: 15px;
   background-color: #6441a4;
+  width: 150px;
+  padding: 15px 20px;
+  display: block;
+  margin-left: calc(50% - 239px);
 }
 
 @media screen and (max-width:1200PX) {
@@ -273,10 +309,10 @@ PARTIE GAMES
 
 /* 
 //////////////
-PARTIE SIDEBAR
+PARTIE TOPSTREAMS
 //////////////
 */
-.cartStream {
+.carteStream {
   height: 420px;
   width: 320px;;
   margin: 0 30px 30px 0;
@@ -284,7 +320,7 @@ PARTIE SIDEBAR
   border-radius: 10px;
   box-shadow: 2px 11px 36px -16px rgba(0, 0, 0, 0.75);
 }
-.cartStream:hover {
+.carteStream:hover {
   transform: translateY(-5px);
 }
 .titreCartesStream {
@@ -392,4 +428,153 @@ PARTIE LIVE
     grid-area: 4 / 1 / 5 / 2;
     text-align: left;
   }
+}
+
+/* 
+//////////////
+PARTIE GAME STREAMS
+//////////////
+*/
+.titreGamesStreams {
+  padding-top: 100px;
+  font-size: 53px;
+  font-weight: 300;
+  padding-left: 260px;
+  padding-bottom: 10px;
+}
+.sousTitreGameStreams {
+  font-size: 25px;
+  font-weight: 300;
+  padding-left: 260px;
+  padding-bottom: 50px;
+}
+.textColored {
+  color: #6441a4;
+}
+
+.carteGameStreams {
+  height: 380px;
+  width: 320px;
+  margin: 0 30px 30px 0;
+  transition: all 0.4s;
+  border-radius: 10px;
+  box-shadow: 2px 11px 36px -16px rgba(0, 0, 0, 0.75);
+}
+.carteGameStreams:hover {
+  transform: translateY(-5px);
+}
+.cardBodyGameStreams {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+@media screen and (max-width:1200px) {
+  .titreGamesStreams {
+    padding-left: 0;
+    font-size: 30px;
+  }
+  .sousTitreGameStreams {
+    font-size: 17px;
+    padding-left: 0px;
+    padding-bottom: 50px;
+  }
+}
+
+@media screen and (max-width:559px) {
+  .carteGameStreams {
+    margin: 0 0 30px 0;
+  }
+}
+
+/* 
+//////////////////////////////////////////
+PARTIE RESULTATS
+////////////////////////////////
+*/
+
+.containerDecaleResultats {
+  overflow-x: hidden;
+  padding-top: 50px;
+  padding-left: 239px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+}
+.containerDecaleResultats h4 {
+  padding-top: 50px;
+  padding-bottom: 20px;
+  font-size: 24px;
+}
+.carteResultats {
+  height: 580px;
+  width: 350px;
+  margin-bottom: 35px;
+  position: relative;
+  transition: all 0.4s;
+  /* Proprietes bootstrap */
+  border-radius: 10px;
+  box-shadow: 2px 11px 36px -16px rgba(0,0,0,0.75);
+  margin-top: 20px;
+}
+.cardBodyResults {
+  height: 230px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}
+
+.cardBodyResults .btnCarte{
+  align-self: flex-end;
+}
+
+.txtResult {
+  font-weight: 500;
+  font-size: 16px;
+  font-weight: 400;
+}
+.btnResult {
+  background: rgb(255, 191, 0);
+  color: #000;
+  font-size: 17px;
+}
+.btnResult:hover {
+  color: #000;
+}
+
+/* Custom */
+@media screen and (max-width:1200px) {
+  .containerDecaleResultats {
+  
+    overflow-x: hidden;
+    padding-top: 0px;
+    padding-left: 0px;
+
+  }
+  .containerDecaleResultats h4 {
+    padding-top: 100px;
+  }
+
+}
+@media screen and (max-width:600px) {
+  .containerDecaleResultats h4 {
+
+    padding-bottom: 20px;
+    font-size: 16px;
+  }
+  .carteResultats {
+    height: 580px;
+    width: 300px;
+
+  }
+}
+.spanTxt {
+  color: #000!important;
+}
+.titreResultats {
+ padding-top: 50px;
 }

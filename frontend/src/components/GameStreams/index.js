@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Axios from 'axios';
 import Config from '../Config';
+import { Link } from 'react-router-dom';
 
 const GameStreams = () => {
 
@@ -91,13 +92,35 @@ const GameStreams = () => {
 
     fetchData();
 
-    }, [])
+    }, [slug, oToken])
 
     console.log(streamData);
     return(
-        <div className="">
-        <br></br><br></br><br></br>
-        <h1>stream</h1>
+        <div>
+            <h1 className="titreGamesStreams">Stream : {slug}</h1>
+            <h3 className="sousTitreGameStreams">
+                <strong className="textColored">{viewers}</strong> personnes regardent {slug}
+            </h3>
+
+            <div className="flexAccueil">
+                {streamData.map((stream, index) => ( 
+                    <div key={index} className="carteGameStreams">
+                        <img src={stream.thumbnail_url} alt="jeu carte" className="imgCarte"/>
+                        <div className="cardBodyGameStreams">
+                            <h5 className="titreCartesStream">{stream.user_name}</h5>
+                            <p className="txtStream">Nombre de viewers : {stream.viewer_count}</p>
+
+                            <Link
+                            className="lien"
+                            to={{
+                                pathname: `/live/${stream.login}`
+                            }}>
+                                <div className="btnCarte">Regarder {stream.user_name}</div>
+                            </Link>
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }

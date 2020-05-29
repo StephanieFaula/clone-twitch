@@ -6,60 +6,71 @@ import Axios from 'axios';
 
 const Live = () => {
 
- //Le destructuring consiste à assigner des variables provenant d'un objet ou tableau en reposant sur leur structure. Ici slug vaut {slug: PseudoDuJoueur}, on recupère simplement la valeur de la propriété slug (grace aux {} autour de slug) pour avoir UNIQUEMENT la valeur: le slug
- let {slug} = useParams();
- // console.log(slug);
+    //Le destructuring consiste à assigner des variables provenant d'un objet ou tableau en reposant sur leur structure. Ici slug vaut {slug: PseudoDuJoueur}, on recupère simplement la valeur de la propriété slug (grace aux {} autour de slug) pour avoir UNIQUEMENT la valeur: le slug
+    let {slug} = useParams();
+    // console.log(slug);
 
- const [infoStream, setInfoStream] = useState([]);
- const [infoGame, setInfoGame] = useState([]);
+    const [infoStream, setInfoStream] = useState([]);
+    const [infoGame, setInfoGame] = useState([]);
 
- const oToken = sessionStorage.getItem('theToken');
+    const oToken = sessionStorage.getItem('theToken');
 
- useEffect(() => {
- const fetchData = async () => {
- const result = await Axios.create({
- headers: {
- 'Client-ID' : Config.clientID,
- 'Authorization' : 'Bearer ' + oToken
- }
- }).get(`https://api.twitch.tv/helix/streams?user_login=${slug}`);
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await Axios.create({
+                headers: {
+                    'Client-ID' : Config.clientID,
+                    'Authorization' : 'Bearer ' + oToken
+                }
+            }).get(`https://api.twitch.tv/helix/streams?user_login=${slug}`);
 
- let gameID = result.data.data.map( gameid => {
- return gameid.game_id
- });
+            if(result.data.data.length === 0) {
+                setInfoStream(false)
+            } else {
+                let gameID = result.data.data.map( gameid => {
+                    return gameid.game_id
+                });
+                const resultNomGame = await Axios.create({
+                headers: {
+                    'Client-ID' : Config.clientID,
+                    'Authorization' : 'Bearer ' + oToken
+                }
+                }).get(`https://api.twitch.tv/helix/games?id=${gameID}`);
+                // console.log(resultNomGame);
+                let nomJeu = resultNomGame.data.data.map(gameName => {
+                    return gameName.name
+                });
 
- const resultNomGame = await Axios.create({
- headers: {
- 'Client-ID' : Config.clientID,
- 'Authorization' : 'Bearer ' + oToken
- }
- }).get(`https://api.twitch.tv/helix/games?id=${gameID}`);
- // console.log(resultNomGame);
+                setInfoGame(nomJeu);
+                setInfoStream(result.data.data[0])
+                // console.log(result);
+            }
+        }
 
- let nomJeu = resultNomGame.data.data.map(gameName => {
- return gameName.name
- })
+        fetchData();
+    }, [slug, oToken])
 
- setInfoGame(nomJeu);
- setInfoStream(result.data.data[0])
- // console.log(result);
- }
+    //&nbsp = espace en html
+    return(
+        infoStream ?
+            <div className="containerDecale">
+                <ReactTwitchEmbedVideo height="754" width="100%" channel={slug}/>
+                <div className="contInfo">
+                    <div className="titreStream">{infoStream.title}</div>
+                    <div className="viewer">Viewers : {infoStream.viewer_count}</div>
+                    <div className="infoGame">Streamer : {infoStream.user_name}, &nbsp; Langue : {infoStream.language}</div>
+                    <div className="nomJeu">Jeu : {infoGame}</div>
+                </div>
+            </div>
+        :
+            <div className="containerDecale">
+                <ReactTwitchEmbedVideo height="754" width="100%" channel={slug}/>
+                <div className="contInfo">
+                    <div className="titreStream">Le streamer est offline !</div>
+                </div>
+            </div>
 
- fetchData();
- }, [])
-
- //&nbsp = espace en html
- return(
- <div className="containerDecale">
- <ReactTwitchEmbedVideo height="754" width="100%" channel={slug}/>
- <div className="contInfo">
- <div className="titreStream">{infoStream.title}</div>
- <div className="viewer">Viewers : {infoStream.viewer_count}</div>
- <div className="infoGame">Streamer : {infoStream.user_name}, &nbsp; Langue : {infoStream.language}</div>
- <div className="nomJeu">Jeu : {infoGame}</div>
- </div>
- </div>
- );
+    );
 }
 
 export default Live;

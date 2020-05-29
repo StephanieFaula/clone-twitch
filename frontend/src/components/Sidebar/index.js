@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import Config from '../Config';
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
 
@@ -90,31 +91,36 @@ const Sidebar = () => {
  }
 
  fetchData();
- }, [])
+ }, [oToken])
 
  // console.log(topStreams);
 
  return(
- <div className="sidebar">
- <h2 className="titreSidebar">Chaines recommandées</h2>
- <ul className="listeStream">
- {topStreams.map((stream, index) => (
- <li key={index} className="containerFlexSidebar">
- <img src={stream.truePic} className="profilePicRonde" alt="logo user"/>
- <div className="streamUser">
- {stream.user_name}
- </div>
- <div className="viewerRight">
- <div className="pointRouge"></div>
- <div>{stream.viewer_count}</div>
- </div>
- <div className="gameNameSidebar">
- {stream.gameName}
- </div>
- </li>
- ))}
- </ul>
- </div>
+    <div className="sidebar">
+        <h2 className="titreSidebar">Chaines recommandées</h2>
+        <ul className="listeStream">
+            {topStreams.map((stream, index) => (
+                <Link key={index} className="lien"
+                to={{
+                    pathname: `/live/${stream.login}`
+                }}>
+                    <li key={index} className="containerFlexSidebar">
+                        <img src={stream.truePic} className="profilePicRonde" alt="logo user"/>
+                        <div className="streamUser">
+                            {stream.user_name}
+                        </div>
+                        <div className="viewerRight">
+                            <div className="pointRouge"></div>
+                            <div>{stream.viewer_count}</div>
+                        </div>
+                        <div className="gameNameSidebar">
+                            {stream.gameName}
+                        </div>
+                    </li>
+                </Link>
+            ))}
+        </ul>
+    </div>
  )
 }
 export default Sidebar;

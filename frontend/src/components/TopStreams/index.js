@@ -92,7 +92,7 @@ const TopStreams = () => {
 
         fetchData();
 
-    }, [])
+    }, [oToken])
 
     // console.log(channels);
 
@@ -102,7 +102,7 @@ const TopStreams = () => {
             <div className="flexAccueil">
                 {channels.map((channel, index) => ( 
                     <div key={index} className="carteStream">
-                        <img src={channel.thumbnail_url} alt="image-jeu" className="imgCarte"/>
+                        <img src={channel.thumbnail_url} alt="jeu" className="imgCarte"/>
 
                         <div className="cardBodyStream">
                             <h5 className="titreCartesStream">{channel.user_name}</h5>
